@@ -1,26 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './styles/css/App.css';
+import BookList from './components/BookList';
 
-function App() {
+const App: React.FC = () => {
+  const books = [
+    { title: '책 이름 1', price: 20000, reviews: 120, rating: '★★★★☆' },
+    { title: '책 이름 2', price: 15000, reviews: 80, rating: '★★★★★' },
+    // 더 많은 책 데이터 추가 가능
+  ];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div>
+        <BookList books={books} />
+      </div>
   );
-}
+};
 
 export default App;
