@@ -34,8 +34,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/index.html', // 템플릿 파일 경로
-            filename: 'index.html', // 생성할 파일 이름
+            template: path.resolve(__dirname, 'public', 'index.html')
         }),
         new CleanWebpackPlugin(),
     ],
