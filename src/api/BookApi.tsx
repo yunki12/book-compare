@@ -29,10 +29,8 @@ export const fetchBooks = async (query) => {
                     {title: '책 이름 10', price: 15000, reviews: 80, rating: '★★★★★'},
                 ];*/
 
-        console.log('data' + response.data)
         console.log(Object.keys(response.data).length)
         console.log('data - ' + JSON.stringify(response.data))
-        console.log('data - ' + JSON.stringify(response.data.data))
 
         // "data" 키로부터 배열을 꺼내서 Book 형태로 변환
         const books: Book[] = response.data.map((item: string[]) => ({
@@ -44,7 +42,7 @@ export const fetchBooks = async (query) => {
 
         console.log(books);
 
-        return response.data;
+        return books;
     } catch (error) {
         console.error("API Error: ", error);
         throw error;
