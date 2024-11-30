@@ -10,7 +10,7 @@ interface Book {
 // 도서 정보를 가져오는 API 함수
 export const fetchBooks = async (query) => {
     try {
-        const response = await axios.get('http://localhost:8000/books/', {
+        const response = await axios.get('http://localhost:8000/book/list', {
             withCredentials: true,
             params: {query},
         });
@@ -28,21 +28,25 @@ export const fetchBooks = async (query) => {
                     {title: '책 이름 9', price: 15000, reviews: 80, rating: '★★★★★'},
                     {title: '책 이름 10', price: 15000, reviews: 80, rating: '★★★★★'},
                 ];*/
+        if(response) {
+            console.log('response data length')
+            console.log(Object.keys(response.data).length)
+            console.log('data - ' + JSON.stringify(response.data))
 
-        console.log(Object.keys(response.data).length)
-        console.log('data - ' + JSON.stringify(response.data))
+            // "data" 키로부터 배열을 꺼내서 Book 형태로 변환
+            const books: Book[] = response.data.map((item: string[]) => ({
+                title: item[0],
+                price: Number(item[1].replace(/,/g, "")),  // 가격에서 콤마 제거 후 숫자로 변환
+                reviews: Number(item[2]),  // 리뷰 수를 숫자로 변환
+                rating: item[3],  // 평점은 문자열 그대로 사용
+            }));
 
-        // "data" 키로부터 배열을 꺼내서 Book 형태로 변환
-        const books: Book[] = response.data.map((item: string[]) => ({
-            title: item[0],
-            price: Number(item[1].replace(/,/g, "")),  // 가격에서 콤마 제거 후 숫자로 변환
-            reviews: Number(item[2]),  // 리뷰 수를 숫자로 변환
-            rating: item[3],  // 평점은 문자열 그대로 사용
-        }));
+            console.log(books);
 
-        console.log(books);
-
-        return books;
+            return books;
+        } else {
+            return null;
+        }
     } catch (error) {
         console.error("API Error: ", error);
         throw error;
