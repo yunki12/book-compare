@@ -21,7 +21,9 @@ const App = () => {
                 console.error("Error fetching books: ", error);
             }
         };
-        fetchData();
+        fetchData()
+            .then(() => console.log("Books fetched successfully"))
+            .catch((error) => console.error("Error in fetchData: ", error));
     }, [query]);
 
     /*    const books = [

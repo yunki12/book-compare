@@ -10,9 +10,13 @@ interface Book {
 // 도서 정보를 가져오는 API 함수
 export const fetchBooks = async (query) => {
     try {
-        const response = await axios.get('http://localhost:8000/book/list', {
+        const response = await axios.get('http://34.136.145.169:8000/api/book/list', {
+        //const response = await axios.get('http://localhost:8000/api/book/list', {
             withCredentials: true,
-            params: {query},
+            //params: {query},
+            headers: {
+                'Content-Type': 'text/html; charset=utf-8'
+            }
         });
 
 
@@ -28,13 +32,13 @@ export const fetchBooks = async (query) => {
                     {title: '책 이름 9', price: 15000, reviews: 80, rating: '★★★★★'},
                     {title: '책 이름 10', price: 15000, reviews: 80, rating: '★★★★★'},
                 ];*/
-        if(response) {
+        if (response) {
             console.log('response data length')
             console.log(Object.keys(response.data).length)
             console.log('data - ' + JSON.stringify(response.data))
 
             // "data" 키로부터 배열을 꺼내서 Book 형태로 변환
-            const books: Book[] = response.data.map((item: string[]) => ({
+            const books: Book[] = response.data.filter(item => item[1] !== null).map((item: string[]) => ({
                 title: item[0],
                 price: Number(item[1].replace(/,/g, "")),  // 가격에서 콤마 제거 후 숫자로 변환
                 reviews: Number(item[2]),  // 리뷰 수를 숫자로 변환

@@ -3,6 +3,14 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
+    devServer: {
+        proxy: {
+            '/api': {
+                target: 'http://localhost:8000',
+                changeOrigin: true,
+            },
+        },
+    },
     mode: 'development',
     entry: {
       bundle: path.resolve(__dirname, 'src/index.tsx'),
