@@ -41,7 +41,7 @@ export const fetchBooks = async (query) => {
             const books: Book[] = response.data.filter(item => item[1] !== null).map((item: string[]) => ({
                 title: item[0],
                 price: Number(item[1].replace(/,/g, "")),  // 가격에서 콤마 제거 후 숫자로 변환
-                reviews: Number(item[2]),  // 리뷰 수를 숫자로 변환
+                reviews: Number(item[2].replace(/,/g, "")),  // 리뷰 수를 숫자로 변환
                 rating: item[3],  // 평점은 문자열 그대로 사용
             }));
 
