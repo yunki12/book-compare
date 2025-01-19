@@ -31,6 +31,14 @@ module.exports = {
                 test: /\.css$/i, // CSS 파일을 처리하기 위한 규칙 추가
                 use: ['style-loader', 'css-loader'], // 'style-loader'와 'css-loader'를 사용
             },
+            {
+                test: /\.png$/,
+                loader: 'file-loader',
+                options: {
+                    publicPath:'./dist/',
+                    name: '[name].[ext]?[hash]'
+                }
+            }
         ],
     },
     resolve: {
