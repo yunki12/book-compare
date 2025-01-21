@@ -1,4 +1,6 @@
 import React from 'react';
+import { Container, Row, Col, Card } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface Book {
     title: string;
@@ -11,26 +13,51 @@ interface BookListProps {
     books: Book[];
 }
 
-const BookList: React.FC<BookListProps> = ({ books }) => {
+// BookCard.js
+const BookCard = ({ book }) => (
+    <Card className="mb-4">
+        <Card.Body>
+            <Card.Title>도서명: {book.title}</Card.Title>
+            <Card.Text>가격: {book.price.toLocaleString()}원</Card.Text>
+            <Card.Text>리뷰 수: {book.reviews.toLocaleString()}</Card.Text>
+            <Card.Text>별점: {book.rating}</Card.Text>
+        </Card.Body>
+    </Card>
+);
+
+// BookSection.js
+const BookSection = ({ title, books }) => (
+    <Col md={4} sm={6} xs={12}>
+        <h2 className="text-center">{title}</h2>
+        {books.map((book, index) => (
+            <BookCard key={index} book={book} />
+        ))}
+    </Col>
+);
+
+const BookList = ({ books }) => {
+    const sections = [
+        { title: '예스24', data: books[0] },
+        { title: '영풍문고', data: books[2] },
+        { title: '알라딘', data: books[3] },
+    ];
+
     return (
-        <div className="container mt-5">
-            <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-            <h1 className="text-center">베스트 도서 목록 (예스24, 교보문고, 영풍문고, 알라딘)</h1>
-            <div className="row">
-                {books.map((book, index) => (
-                    <div className="col-lg-3 col-md-4 col-sm-6 mb-4" key={index}>
-                        <div className="card h-100">
-                            <div className="card-body">
-                                <h5 className="card-title">도서명: {book.title}</h5>
-                                <p className="card-text">가격: {book.price.toLocaleString()}원</p>
-                                <p className="card-text">리뷰 수: {book.reviews}</p>
-                                <p className="card-text rating">별점: {book.rating}</p>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
+        <Container className="mt-5">
+            <h1 className="text-center">베스트 도서 목록</h1>
+            <Row>
+                {sections.map(
+                    (section, index) =>
+                        Array.isArray(section.data) && (
+                            <BookSection
+                                key={index}
+                                title={section.title}
+                                books={section.data}
+                            />
+                        )
+                )}
+            </Row>
+        </Container>
     );
 };
 
