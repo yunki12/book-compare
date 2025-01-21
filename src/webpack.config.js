@@ -1,44 +1,57 @@
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
     devServer: {
         proxy: {
-            "/api":"http://localhost:8000"
-        }
+            '/api': {
+                target: 'http://localhost:8000',
+                changeOrigin: true,
+            },
+        },
     },
-    //entry: './src/index.tsx', // index.tsx가 위치한 경로
-    entry: './src', // index.tsx가 위치한 경로
-    resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.json'], // TypeScript 파일 확장자 추가
+    mode: 'development',
+    entry: {
+        bundle: path.resolve(__dirname, 'src/index.tsx'),
     },
     module: {
         rules: [
             {
-                test: /\.(ts|tsx)$/, // .ts와 .tsx 파일을 처리하도록 설정
-                exclude: /node_modules/,
-                use: 'ts-loader', // TypeScript를 처리하기 위한 로더
-            },
-            // 다른 로더 설정들 (예: CSS, 이미지 등)
-            {
-                test: /\.css$/,
-                use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            publicPath: '/dist'
-                        }
+                test: /\.tsx?$/,
+                //exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
                     },
-                    {
-                        loader: "css-loader"
-                    }
-                ]
+                },
+            },
+            {
+                test: /\.css$/i, // CSS 파일을 처리하기 위한 규칙 추가
+                use: ['style-loader', 'css-loader'], // 'style-loader'와 'css-loader'를 사용
+            },
+            {
+                test: /\.png$/,
+                loader: 'file-loader',
+                options: {
+                    publicPath:'./dist/',
+                    name: '[name].[ext]?[hash]'
+                }
             }
         ],
     },
-    output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: '/', // 정적 파일이 제공되는 경로로 설정
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
     },
+    output: {
+        filename: "bundle.js",
+        path: path.resolve(__dirname, "dist"),
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, 'public', 'index.html')
+        }),
+        new CleanWebpackPlugin(),
+    ],
 };
