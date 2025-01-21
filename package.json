@@ -11,9 +11,12 @@
     "@types/node": "^16.18.31",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.7",
+    "axios": "^1.7.7",
     "braces": "^3.0.3",
+    "http-proxy-middleware": "^3.0.3",
     "json5": "^2.2.3",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.10.7",
     "react-dom": "^18.2.0",
     "react-scripts": "^0.0.0",
     "typescript": "^4.9.5",
@@ -26,6 +29,7 @@
     "eject": "react-scripts eject",
     "dev": "webpack-dev-server --mode=development --open --hot --progress"
   },
+  "proxy": "http://localhost:8000",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -55,6 +59,7 @@
     "css-loader": "^7.1.2",
     "eslint-config-react-app": "^7.0.1",
     "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.9.2",
     "nth-check": "^2.1.1",
     "rollup": "^2.0.0",
     "rollup-plugin-babel": "^4.4.0",
@@ -64,7 +69,9 @@
     "rollup-plugin-url": "^3.0.1",
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.1",
-    "webpack-cli": "^5.1.4"
+    "webpack": "^5.97.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
   },
   "overrides": {
     "nth-check": "^2.1.1",

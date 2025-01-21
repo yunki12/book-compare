@@ -13,7 +13,7 @@ module.exports = {
     },
     mode: 'development',
     entry: {
-      bundle: path.resolve(__dirname, 'src/index.tsx'),
+        bundle: path.resolve(__dirname, 'src/index.tsx'),
     },
     module: {
         rules: [
