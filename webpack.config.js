@@ -16,13 +16,16 @@ module.exports = (env, argv) => {
 
     return {
         devServer: {
-            overlay: true,
-            proxy: {
-                '/api': {
-                    target: 'http://localhost:8000',
+            client: {
+                overlay: true,
+            },
+            proxy: [
+                {
+                    context: ["/api"],  // 여러 경로를 동시에 프록시 가능
+                    target: "http://localhost:8000",
                     changeOrigin: true,
                 },
-            },
+            ],
             hot: true, // hot loading
         },
         mode: mode,
