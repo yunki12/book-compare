@@ -13,6 +13,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = (env, argv) => {
     const mode = argv.mode || 'development';
+    const isProduction = argv.mode === 'production';
 
     return {
         devServer: {
@@ -107,12 +108,17 @@ module.exports = (env, argv) => {
             new HtmlWebpackPlugin({
                 template: path.resolve(__dirname, 'public', 'index.html'),
                 templateParameters: {
-                    env: mode === 'development' ? '(development)' : ''
+                    env: mode === 'development' ? '(development)' : '',
                 },
                 minify: { // NODE_ENV Mode 에 따라 Production 에서만 적용하게 처리
                     collapseWhitespace: true, //공백 제거 한줄
                     removeComments: true, //주석제거
                 }
+            }),
+            new webpack.DefinePlugin({
+                'process.env.API_URL': JSON.stringify(
+                    isProduction ? 'http://35.222.95.13:8000/api/book/list' : 'http://localhost:8000/api/book/list'
+                ),
             }),
             new webpack.BannerPlugin({
                 raw: true,

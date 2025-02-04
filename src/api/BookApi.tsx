@@ -11,9 +11,8 @@ interface Book {
 export const fetchBooks = async (query) => {
   try {
     const response = await axios.get(
-      "http://35.222.95.13:8000/api/book/list",
+        process.env.API_URL,
       {
-        //const response = await axios.get('http://localhost:8000/api/book/list', {
         withCredentials: true,
         headers: {
           "Content-Type": "text/html; charset=utf-8",
