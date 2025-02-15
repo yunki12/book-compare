@@ -5,6 +5,7 @@ interface Book {
   price: number;
   reviews: number;
   rating: string;
+  image: string;
 }
 
 // 도서 정보를 가져오는 API 함수
@@ -32,6 +33,7 @@ export const fetchBooks = async (query) => {
               price: Number(item[1].replace(/,/g, "")), // 가격에서 콤마 제거 후 숫자로 변환
               reviews: item[2], // 리뷰 수를 숫자로 변환
               rating: item[3], // 평점은 문자열 그대로 사용
+              image: item[4]
             })),
         );
       });
