@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.25.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -12,22 +11,33 @@
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.7",
     "axios": "^1.7.7",
+    "babel-regenerator-runtime": "^6.5.0",
+    "bootstrap": "^5.3.3",
     "braces": "^3.0.3",
+    "copy-webpack-plugin": "^12.0.2",
+    "core-js": "^3.40.0",
+    "css-minimizer-webpack-plugin": "^7.0.0",
     "http-proxy-middleware": "^3.0.3",
     "json5": "^2.2.3",
+    "lint-staged": "^15.4.3",
+    "mini-css-extract-plugin": "^2.9.2",
+    "node-sass": "^9.0.0",
+    "prettier": "^3.4.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.7",
     "react-dom": "^18.2.0",
-    "react-scripts": "^0.0.0",
-    "typescript": "^4.9.5",
+    "react-responsive": "^10.0.0",
+    "sass-loader": "^16.0.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "webpack --config webpack.config.js",
+    "build-dev": "webpack --mode=development --progress --config webpack.config.js",
+    "build": "webpack --mode=production --progress --config webpack.config.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "webpack-dev-server --mode=development --open --hot --progress"
+    "dev": "webpack-dev-server --mode=development --open --hot --progress",
+    "lint": "eslint src --fix"
   },
   "proxy": "http://localhost:8000",
   "eslintConfig": {
@@ -49,17 +59,28 @@
     ]
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.25.4",
-    "@babel/preset-react": "^7.24.7",
+    "@babel/core": "^7.26.7",
+    "@babel/preset-env": "^7.26.7",
+    "@babel/preset-react": "^7.26.3",
     "@babel/preset-typescript": "^7.24.7",
+    "@eslint/js": "^9.19.0",
     "@rollup/plugin-babel": "^6.0.4",
     "@svgr/rollup": "^8.1.0",
+    "@types/webpack": "^5.28.5",
     "babel-loader": "^9.2.1",
+    "banner-plugin": "^1.0.10",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^7.1.2",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.0.1",
     "eslint-config-react-app": "^7.0.1",
-    "html-webpack-plugin": "^5.5.0",
-    "mini-css-extract-plugin": "^2.9.2",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-react": "^7.37.4",
+    "git-rev-webpack-plugin": "^0.3.1",
+    "git-revision-webpack-plugin": "^5.0.0",
+    "globals": "^15.14.0",
+    "html-webpack-plugin": "^5.6.3",
+    "husky": "^9.1.7",
     "nth-check": "^2.1.1",
     "rollup": "^2.0.0",
     "rollup-plugin-babel": "^4.4.0",
@@ -68,13 +89,23 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-url": "^3.0.1",
     "style-loader": "^4.0.0",
-    "ts-loader": "^9.5.1",
+    "terser-webpack-plugin": "^5.3.11",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.21.0",
     "webpack": "^5.97.1",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.1.0"
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.0"
   },
   "overrides": {
     "nth-check": "^2.1.1",
     "postcss": "^8.4.38"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --fix"
   }
 }
