@@ -9,7 +9,7 @@ const child_process = require("child_process");
 const {GitRevisionPlugin} = require('git-revision-webpack-plugin');
 const gitRevisionPlugin = new GitRevisionPlugin();
 const CopyPlugin = require("copy-webpack-plugin");
-
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 
 module.exports = (env, argv) => {
     const mode = argv.mode || 'development';
@@ -80,6 +80,10 @@ module.exports = (env, argv) => {
             ],
         },
         resolve: {
+            fallback: {
+                https: require.resolve("https-browserify"),
+                buffer: require.resolve("buffer/"),
+            },
             extensions: ['.js', '.json', '.wasm', '.ts', '.tsx'],
         },
         output: {
@@ -105,6 +109,9 @@ module.exports = (env, argv) => {
             axios: "axios"
         },*/
         plugins: [
+            new webpack.ProvidePlugin({
+                Buffer: ["buffer", "Buffer"],
+            }),
             new HtmlWebpackPlugin({
                 template: path.resolve(__dirname, 'public', 'index.html'),
                 templateParameters: {
@@ -117,7 +124,7 @@ module.exports = (env, argv) => {
             }),
             new webpack.DefinePlugin({
                 'process.env.API_URL': JSON.stringify(
-                    isProduction ? 'http://35.222.95.13:8000/api/book/list' : 'http://localhost:8000/api/book/list'
+                    isProduction ? '/api/book/list' : 'http://localhost:8000/api/book/list'
                 ),
             }),
             new webpack.BannerPlugin({

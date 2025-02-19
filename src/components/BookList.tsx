@@ -80,7 +80,7 @@ const BookList = ({ books }) => {
 
   return (
     <Container className="mt-5">
-      <h1 className="text-center">베스트 도서 목록</h1>
+      {/*<h1 className="text-center">베스트 도서 목록</h1>*/}
       <Row>
         {sections.map(
           (section, index) =>
