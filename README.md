@@ -1,4 +1,5 @@
-# book-compare
+# 베스트 도서 비교 서비스
+
 
 ### 패키지 구조
 #### node_modules/
