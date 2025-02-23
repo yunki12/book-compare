@@ -3,6 +3,7 @@ import '../styles/css/App.css';
 import BookList from '../components/BookList';
 import {fetchBooks} from "../api/BookApi";
 import { useEffect, useState } from 'react';
+import NavigationBar from "../components/NavigationBar";
 
 const App = () => {
     const [books, setBooks] = useState([]);
@@ -23,6 +24,7 @@ const App = () => {
     }, [query]);
     return (
         <div>
+            <NavigationBar />
             <BookList books={books}/>
         </div>
     );
