@@ -1,6 +1,7 @@
 {
   "name": "react-test",
   "version": "0.1.0",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
@@ -8,8 +9,8 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.31",
-    "@types/react": "^18.2.14",
-    "@types/react-dom": "^18.2.7",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
     "axios": "^1.7.7",
     "babel-regenerator-runtime": "^6.5.0",
     "bootstrap": "^5.3.3",
@@ -30,6 +31,7 @@
     "react-bootstrap": "^2.10.7",
     "react-dom": "^18.2.0",
     "react-responsive": "^10.0.0",
+    "react-router-dom": "^6.22.3",
     "sass-loader": "^16.0.4",
     "web-vitals": "^2.1.4"
   },
@@ -69,6 +71,7 @@
     "@eslint/js": "^9.19.0",
     "@rollup/plugin-babel": "^6.0.4",
     "@svgr/rollup": "^8.1.0",
+    "@types/react-router-dom": "^5.3.3",
     "@types/webpack": "^5.28.5",
     "babel-loader": "^9.2.1",
     "banner-plugin": "^1.0.10",

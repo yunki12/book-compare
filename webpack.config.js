@@ -28,6 +28,14 @@ module.exports = (env, argv) => {
                 },
             ],
             hot: true, // hot loading
+            static: {
+                directory: path.resolve(__dirname, 'dist'), // 정적 파일 경로
+                serveIndex: false, // 디렉토리 인덱싱 비활성화
+            },
+            historyApiFallback: {
+                index: '/index.html', // 명시적으로 index.html로 리다이렉트
+                disableDotRule: true, // .으로 시작하는 경로도 처리
+            },
         },
         mode: mode,
         entry: {
