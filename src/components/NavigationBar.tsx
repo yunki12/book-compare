@@ -15,7 +15,7 @@ const NavigationBar: React.FC = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="/">홈</Nav.Link>
+                        <Nav.Link href="/books">홈</Nav.Link>
                         <Nav.Link href="#">베스트셀러</Nav.Link>
                         <Nav.Link href="#">신간</Nav.Link>
                         <Nav.Link href="/recommend/book">AI 도서 추천</Nav.Link>

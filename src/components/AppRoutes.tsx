@@ -13,7 +13,7 @@ const AppRoutes = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<BookList/>}/>
+                <Route path="/books/" element={<BookList/>}/>
                 <Route path="/recommend/book" element={<BookRecommendation/>}/>
             </Routes>
         </BrowserRouter>
