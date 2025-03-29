@@ -134,6 +134,9 @@ module.exports = (env, argv) => {
                 'process.env.API_URL': JSON.stringify(
                     isProduction ? '/api/book/list' : 'http://localhost:8000/api/book/list'
                 ),
+                'process.env.RECOMMEND_API_URL': JSON.stringify(
+                    isProduction ? '/api/book/recommend' : 'http://localhost:8000/api/book/recommend'
+                )
             }),
             new webpack.BannerPlugin({
                 raw: true,

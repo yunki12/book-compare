@@ -4,60 +4,45 @@
  /* Author: 'YoonGiBum'
  **/
 
-import React from "react";
-import { useEffect, useState } from 'react';
+import React, {useEffect, useState} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-
-// 추천 도서 타입 정의
-interface Book {
-  id: number;
-  title: string;
-  author: string;
-  description: string;
-  coverImage?: string;
-}
+import {Container, ProgressBar} from 'react-bootstrap';
+import {fetchRecommend} from "../api/RecommendApi";
 
 function BookRecommendation() {
-  const [books, setBooks] = useState<Book[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+    const [data, setData] = useState('');
+    const [query] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
-  // 모의 API 호출
-  const fetchRecommendedBooks = async (): Promise<Book[]> => {
-    // 실제로는 API 호출로 대체
-    return [
-      {
-        id: 1,
-        title: "책 제목 1",
-        author: "작가 1",
-        description: "책 설명 1",
-      },
-      {
-        id: 2,
-        title: "책 제목 2",
-        author: "작가 2",
-        description: "책 설명 2",
-      },
-    ];
-  };
+    useEffect(() => {
+        const fetchData = async () => {
+            setIsLoading(true); // Show progress bar when fetch starts
+            try {
+                const result = await fetchRecommend(query);
+                setData(result);
+            } catch (error) {
+                console.error("Error fetching recommend: ", error);
+            } finally {
+                setIsLoading(false); // Hide progress bar when fetch completes
+            }
+        };
+        fetchData().catch((error) => console.error("Error in fetchData: ", error));
+    }, [query]);
 
-  useEffect(() => {
-    fetchRecommendedBooks()
-      .then((data: Book[]) => {
-        setBooks(data);
-        setLoading(false);
-      })
-      .catch((error: Error) => {
-        console.error('Error fetching books:', error);
-        setLoading(false);
-      });
-  }, []);
-
-  return (
-    <Container className="my-4">
-      <h1>준비중 ..</h1>
-    </Container>
-  );
+    return (
+        <Container className="my-4">
+            {isLoading ? (
+                <ProgressBar
+                    animated
+                    now={100}
+                    label="Loading recommendations..."
+                    className="mb-3"
+                />
+            ) : (
+                <div style={{ whiteSpace: 'pre-wrap' }}>{data}</div>
+            )}
+        </Container>
+    );
 }
 
 export default BookRecommendation;
