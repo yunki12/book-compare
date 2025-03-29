@@ -1,3 +1,9 @@
+/**
+ /* © 2025 YoonGiBum, Inc. All rights reserved.
+ /* Build Date: 2025.03.22
+ /* Author: 'YoonGiBum'
+ **/
+
 import axios from "axios";
 
 interface Book {

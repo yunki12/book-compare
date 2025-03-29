@@ -9,7 +9,7 @@ const child_process = require("child_process");
 const {GitRevisionPlugin} = require('git-revision-webpack-plugin');
 const gitRevisionPlugin = new GitRevisionPlugin();
 const CopyPlugin = require("copy-webpack-plugin");
-
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 
 module.exports = (env, argv) => {
     const mode = argv.mode || 'development';
@@ -28,6 +28,14 @@ module.exports = (env, argv) => {
                 },
             ],
             hot: true, // hot loading
+            static: {
+                directory: path.resolve(__dirname, 'dist'), // 정적 파일 경로
+                serveIndex: false, // 디렉토리 인덱싱 비활성화
+            },
+            historyApiFallback: {
+                index: '/index.html', // 명시적으로 index.html로 리다이렉트
+                disableDotRule: true, // .으로 시작하는 경로도 처리
+            },
         },
         mode: mode,
         entry: {
@@ -80,6 +88,10 @@ module.exports = (env, argv) => {
             ],
         },
         resolve: {
+            fallback: {
+                https: require.resolve("https-browserify"),
+                buffer: require.resolve("buffer/"),
+            },
             extensions: ['.js', '.json', '.wasm', '.ts', '.tsx'],
         },
         output: {
@@ -105,6 +117,9 @@ module.exports = (env, argv) => {
             axios: "axios"
         },*/
         plugins: [
+            new webpack.ProvidePlugin({
+                Buffer: ["buffer", "Buffer"],
+            }),
             new HtmlWebpackPlugin({
                 template: path.resolve(__dirname, 'public', 'index.html'),
                 templateParameters: {
@@ -117,8 +132,11 @@ module.exports = (env, argv) => {
             }),
             new webpack.DefinePlugin({
                 'process.env.API_URL': JSON.stringify(
-                    isProduction ? 'http://35.222.95.13:8000/api/book/list' : 'http://localhost:8000/api/book/list'
+                    isProduction ? '/api/book/list' : 'http://localhost:8000/api/book/list'
                 ),
+                'process.env.RECOMMEND_API_URL': JSON.stringify(
+                    isProduction ? '/api/book/recommend' : 'http://localhost:8000/api/book/recommend'
+                )
             }),
             new webpack.BannerPlugin({
                 raw: true,
