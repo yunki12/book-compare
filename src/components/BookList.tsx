@@ -34,7 +34,7 @@ const BookCard = ({book}) => (
     <Card className="mb-3">
         <Card.Body>
             <img src={book.image} alt={book.title} className="img-fluid me-3" style={{width: "100px", height: "auto"}}/>
-            <Card.Title>{book.title}</Card.Title>
+            <Card.Title>도서명: {book.title}</Card.Title>
             <Card.Text>가격: {book.price.toLocaleString()}원</Card.Text>
             <Card.Text>리뷰 수: {book.reviews.toLocaleString()}</Card.Text>
             <Card.Text>별점: {book.rating}</Card.Text>
